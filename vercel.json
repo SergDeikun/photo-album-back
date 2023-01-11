@@ -3,7 +3,7 @@
     "name": "photo-album",
     "builds": [
         {
-            "src": "package.json",
+            "src": "app.js",
             "use": "@vercel/node"
         }
     ],
