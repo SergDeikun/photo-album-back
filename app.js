@@ -3,10 +3,10 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRouter = require("./routes/api/auth");
-const userRouter = require("./routes/api/user");
-const albumRouter = require("./routes/api/album");
-const photoRouter = require("./routes/api/photo");
+const authRouter = require("./src/routes/api/auth");
+const userRouter = require("./src/routes/api/user");
+const albumRouter = require("./src/routes/api/album");
+const photoRouter = require("./src/routes/api/photo");
 
 const app = express();
 

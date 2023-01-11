@@ -3,13 +3,13 @@
     "name": "music-album",
     "builds": [
         {
-            "/": "app.js",
+            "src": "app.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "/": "/(.*)",
+            "src": "/(.*)",
             "dest": "/app.js"
         }
     ]
