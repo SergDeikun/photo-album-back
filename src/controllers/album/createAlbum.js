@@ -6,7 +6,6 @@ const uploadBackground = require("../../middlewares/cloudinary");
 const createAlbum = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
-    console.log(req.user);
     let background = null;
 
     if (!userId) {
