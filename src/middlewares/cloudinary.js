@@ -14,7 +14,7 @@ const uploadImage = (buffer, path) => {
       {
         width: 600,
         height: 500,
-        format: "png | jpg | jpeg",
+        format: "png  jpg  jpeg",
         folder: path,
       },
       (error, result) => {
