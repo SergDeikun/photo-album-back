@@ -6,6 +6,7 @@ const uploadPhoto = require("../../middlewares/cloudinary");
 const addPhoto = async (req, res, next) => {
   try {
     const { id: albumId } = req.params;
+
     let photo = null;
 
     if (!albumId) {

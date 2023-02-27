@@ -18,7 +18,7 @@ router.post(
   ctrl.createAlbum
 );
 
-router.get("/:id", ctrl.getAlbum);
+router.get("/:id", authenticate, ctrl.getAlbum);
 
 router.patch(
   "/:id",
