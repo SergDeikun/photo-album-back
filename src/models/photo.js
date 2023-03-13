@@ -10,9 +10,13 @@ const photoSchema = new Schema(
       required: true,
     },
     comments: String,
+    // albumId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "album",
+    // },
     albumId: {
-      type: Schema.Types.ObjectId,
-      ref: "album",
+      type: String,
+      required: true,
     },
   },
   { versionKey: false, timestamps: true }

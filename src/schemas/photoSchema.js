@@ -6,6 +6,7 @@ const photoSchema = Joi.object({
   // photoURL: Joi.string().valid("image/jpeg", "image/png").required(),
   // photoURL: Joi.string(),
   comments: Joi.string().allow(""),
+  albumId: Joi.string().require(),
 });
 
 module.exports = photoSchema;
