@@ -21,7 +21,7 @@ router.post(
 router.get("/:id", authenticate, ctrl.getAlbum);
 
 router.patch(
-  "/:id",
+  "/:id/update",
   authenticate,
   isValidId,
   upload.single("backgroundURL"),
