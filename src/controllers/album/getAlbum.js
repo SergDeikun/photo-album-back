@@ -6,7 +6,8 @@ const getAlbum = async (req, res, next) => {
     const { id } = req.params;
     const result = await service
       .getAlbum(id)
-      .populate("photo", "place date photoURL comments ");
+      // .populate("photo", "place date photoURL comments ");
+      .populate({ path: "photo" });
 
     if (!result) {
       throw RequestError(404, "Not found");
