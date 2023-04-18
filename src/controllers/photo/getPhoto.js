@@ -5,6 +5,7 @@ const getPhoto = async (req, res, next) => {
   try {
     const { id } = req.params;
     const photo = await service.getPhoto(id);
+    // .populate("photo", "place date  comments albumId ");
 
     if (!photo) {
       throw RequestError(404, "Not found");
