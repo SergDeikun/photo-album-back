@@ -9,6 +9,6 @@ router.post("/register", validateBody(registerSchema), ctrl.register);
 
 router.post("/login", validateBody(loginSchema), ctrl.login);
 
-router.post("/logout", authenticate, ctrl.logout);
+router.get("/logout", authenticate, ctrl.logout);
 
 module.exports = router;
