@@ -18,14 +18,9 @@ const updateUser = (id, data) => {
   });
 };
 
-const logoutUser = (id) => {
-  return User.findByIdAndUpdate(id, { token: null });
-};
-
 module.exports = {
   addUser,
   findUser,
   loginUser,
   updateUser,
-  logoutUser,
 };
