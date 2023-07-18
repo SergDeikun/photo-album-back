@@ -12,8 +12,10 @@ const uploadImage = (buffer, path) => {
   return new Promise((resolve, reject) => {
     const cldUuploadSstream = cloudinary.uploader.upload_stream(
       {
-        width: 600,
-        height: 500,
+        // width: 600,
+        // height: 500,
+        width: 1600,
+        height: 1205,
         format: "png",
         folder: path,
       },

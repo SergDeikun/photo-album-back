@@ -1,3 +1,5 @@
+const { Album } = require("../../models");
+const { Photo } = require("../../models");
 const { User } = require("../../models");
 const { RequestError } = require("../../helpers");
 const service = require("../../services/albumService");
@@ -21,6 +23,7 @@ const removeAlbum = async (req, res, next) => {
     //   }
     // );
     await User.findByIdAndUpdate({ _id: userId }, { $pull: { myAlbums: id } });
+    await Photo.deleteMany({ id: { $in: Album.photo } });
 
     res.json({ message: "album deleted" });
   } catch (error) {
