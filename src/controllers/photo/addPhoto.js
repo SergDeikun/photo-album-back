@@ -23,7 +23,7 @@ const addPhoto = async (req, res, next) => {
 
     const newPhoto = await service.addPhoto({
       ...req.body,
-      // albumId,
+      albumId,
       photoURL: photo,
     });
 

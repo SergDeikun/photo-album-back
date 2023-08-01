@@ -22,7 +22,7 @@ const uploadImage = (buffer, path) => {
       (error, result) => {
         if (result) {
           resolve(result);
-          console.log(result);
+          // console.log(result);
         } else {
           reject(error);
         }
