@@ -13,6 +13,7 @@ const albumSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    viewers: [],
   },
   { versionKey: false, timestamps: true }
 );

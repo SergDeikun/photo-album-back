@@ -8,6 +8,7 @@ const {
   upload,
   isValidId,
 } = require("../../middlewares");
+
 const { albumSchema } = require("../../schemas");
 
 router.post(
@@ -30,5 +31,7 @@ router.patch(
 );
 
 router.delete("/:id", authenticate, isValidId, ctrl.removeAlbum);
+
+router.post("/:id/access", authenticate, isValidId, ctrl.confirmUserAccess);
 
 module.exports = router;

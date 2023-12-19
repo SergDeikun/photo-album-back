@@ -1,12 +1,9 @@
-const Joi = require("joi").extend(require("@joi/date"));
+const Joi = require("joi");
 
 const photoSchema = Joi.object({
   place: Joi.string().allow(""),
-  date: Joi.date().format("DD.MM.YYYY").utc().allow(""),
-  // date: Joi.date().allow(""),
-
-  // photoURL: Joi.string().valid("image/jpeg", "image/png").required(),
-  // photoURL: Joi.string(),
+  date: Joi.string().allow(""),
+  photoURL: Joi.string().allow(""),
   comments: Joi.string().allow(""),
 });
 

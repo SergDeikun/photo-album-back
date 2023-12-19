@@ -18,4 +18,9 @@ const removeAlbum = (id) => {
   return Album.findByIdAndRemove(id);
 };
 
-module.exports = { addAlbum, updateAlbum, getAlbum, removeAlbum };
+module.exports = {
+  addAlbum,
+  updateAlbum,
+  getAlbum,
+  removeAlbum,
+};

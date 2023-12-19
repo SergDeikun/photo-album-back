@@ -7,6 +7,7 @@ const removePhoto = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await service.removePhoto(id);
+    console.log(result);
 
     if (!result) {
       throw RequestError(404, "Not found");
@@ -15,6 +16,8 @@ const removePhoto = async (req, res, next) => {
     await Album.findByIdAndUpdate(
       { _id: id },
       { $push: { photo: result } },
+      // { $pull: { photo: id } },
+
       {
         new: true,
       }
