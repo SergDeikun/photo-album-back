@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { Album } = require("../../models");
+const { Album, User } = require("../../models");
 
 const userService = require("../../services/authService");
 const albumService = require("../../services/albumService.js");
@@ -36,6 +36,14 @@ const confirmUserAccess = async (req, res, next) => {
     const { id } = req.params;
     const result = await albumService.getAlbum(id);
 
+    const isAlreadyShared = result.viewers.some(
+      (viewer) => viewer.email === email
+    );
+
+    if (isAlreadyShared) {
+      throw RequestError(401, "You already have access to this album");
+    }
+
     if (!result) {
       throw RequestError(404, "Not found");
     }
@@ -43,10 +51,20 @@ const confirmUserAccess = async (req, res, next) => {
     // add viewer
     await Album.findByIdAndUpdate(
       { _id: id },
-      { $push: { viewers: { email: user.email, name: user.name } } }
+      { $push: { viewers: { email: user.email, name: user.name } } },
+      {
+        new: true,
+      }
     );
 
-    res.json(result);
+    await User.findByIdAndUpdate(
+      { _id: user.id },
+      { $push: { albumsShared: result } },
+      {
+        new: true,
+      }
+    );
+    res.json({ result, token });
   } catch (error) {
     next(error);
   }

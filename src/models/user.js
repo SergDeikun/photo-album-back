@@ -17,6 +17,8 @@ const userSchema = new Schema(
       required: true,
     },
     myAlbums: [{ type: Schema.ObjectId, ref: "album" }],
+    albumsShared: [],
+
     token: {
       type: String,
       default: null,

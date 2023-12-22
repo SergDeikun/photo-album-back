@@ -9,7 +9,7 @@ const {
   isValidId,
 } = require("../../middlewares");
 
-const { albumSchema } = require("../../schemas");
+const { albumSchema, loginSchema } = require("../../schemas");
 
 router.post(
   "/",
@@ -32,6 +32,11 @@ router.patch(
 
 router.delete("/:id", authenticate, isValidId, ctrl.removeAlbum);
 
-router.post("/:id/access", authenticate, isValidId, ctrl.confirmUserAccess);
+router.post(
+  "/:id/access",
+  validateBody(loginSchema),
+  isValidId,
+  ctrl.confirmUserAccess
+);
 
 module.exports = router;
