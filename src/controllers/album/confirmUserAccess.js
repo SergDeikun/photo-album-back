@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 const { Album, User } = require("../../models");
 
@@ -14,6 +15,7 @@ const confirmUserAccess = async (req, res, next) => {
     // check user
     const { email, password } = req.body;
     const user = await userService.findUser(email);
+    // .populate("friendsAlbums");
 
     if (!user) {
       throw RequestError(401, "Email or password is wrong");
@@ -34,7 +36,12 @@ const confirmUserAccess = async (req, res, next) => {
 
     // check album
     const { id } = req.params;
+
     const result = await albumService.getAlbum(id);
+
+    if (!result) {
+      throw RequestError(404, "Not found");
+    }
 
     const isAlreadyShared = result.viewers.some(
       (viewer) => viewer.email === email
@@ -44,27 +51,37 @@ const confirmUserAccess = async (req, res, next) => {
       throw RequestError(401, "You already have access to this album");
     }
 
-    if (!result) {
-      throw RequestError(404, "Not found");
-    }
+    const friendsAlbum = new Album({
+      name: result.name,
+      backgroundURL: result.backgroundURL,
+      userId: result.userId,
+      owner: false,
+      photo: result.photo.map(
+        (photoId) => new mongoose.Types.ObjectId(photoId)
+      ),
+    });
 
     // add viewer
     await Album.findByIdAndUpdate(
-      { _id: id },
-      { $push: { viewers: { email: user.email, name: user.name } } },
+      // { _id: id },
+      id,
+      {
+        $push: { viewers: { email: user.email, name: user.name } },
+      },
       {
         new: true,
       }
     );
 
     await User.findByIdAndUpdate(
-      { _id: user.id },
-      { $push: { albumsShared: result } },
+      // { _id: user.id },
+      user.id,
+      { $push: { friendsAlbums: friendsAlbum } },
       {
         new: true,
       }
     );
-    res.json({ result, token });
+    res.json({ token });
   } catch (error) {
     next(error);
   }

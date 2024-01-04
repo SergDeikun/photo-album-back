@@ -8,6 +8,7 @@ const getAlbum = async (req, res, next) => {
       .getAlbum(id)
       // .populate("photo", "place date photoURL comments ");
       .populate({ path: "photo" });
+    // console.log(result);
 
     if (!result) {
       throw RequestError(404, "Not found");

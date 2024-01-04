@@ -3,6 +3,10 @@ const { handleSaveErrors } = require("../helpers");
 
 const albumSchema = new Schema(
   {
+    owner: {
+      type: Boolean,
+      default: true,
+    },
     name: {
       type: String,
       require: true,
