@@ -17,7 +17,7 @@ const userSchema = new Schema(
       required: true,
     },
     myAlbums: [{ type: Schema.ObjectId, ref: "album" }],
-    friendsAlbums: [],
+    friendsAlbums: [{ type: Schema.ObjectId, ref: "album" }],
 
     token: {
       type: String,

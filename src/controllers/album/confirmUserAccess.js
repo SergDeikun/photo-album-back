@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
 
 const { Album, User } = require("../../models");
 
@@ -15,7 +14,6 @@ const confirmUserAccess = async (req, res, next) => {
     // check user
     const { email, password } = req.body;
     const user = await userService.findUser(email);
-    // .populate("friendsAlbums");
 
     if (!user) {
       throw RequestError(401, "Email or password is wrong");
@@ -51,18 +49,8 @@ const confirmUserAccess = async (req, res, next) => {
       throw RequestError(401, "You already have access to this album");
     }
 
-    const friendsAlbum = new Album({
-      name: result.name,
-      backgroundURL: result.backgroundURL,
-      userId: result.userId,
-      owner: false,
-      photo: result.photo.map(
-        (photoId) => new mongoose.Types.ObjectId(photoId)
-      ),
-    });
-
     // add viewer
-    await Album.findByIdAndUpdate(
+    const newAlbum = await Album.findByIdAndUpdate(
       // { _id: id },
       id,
       {
@@ -76,7 +64,9 @@ const confirmUserAccess = async (req, res, next) => {
     await User.findByIdAndUpdate(
       // { _id: user.id },
       user.id,
-      { $push: { friendsAlbums: friendsAlbum } },
+      {
+        $push: { friendsAlbums: newAlbum },
+      },
       {
         new: true,
       }

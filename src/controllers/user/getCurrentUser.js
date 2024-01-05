@@ -7,8 +7,15 @@ const getCurrentUser = async (req, res, next) => {
 
     const currentUser = await service
       .getCurrentUser(userId)
-      // .populate("myAlbums", "name backgroundURL userId photo ")
-      .populate({ path: "myAlbums", populate: { path: "photo" } });
+      .populate([
+        { path: "friendsAlbums" },
+        { path: "myAlbums", populate: { path: "photo" } },
+      ]);
+    // .populate("myAlbums", "name backgroundURL userId photo ")
+    // .populate({
+    //   path: "myAlbums",
+    //   populate: { path: "photo" },
+    // });
 
     if (!currentUser) {
       throw RequestError(404, "Not found");
