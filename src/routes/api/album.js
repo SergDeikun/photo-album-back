@@ -39,4 +39,11 @@ router.post(
   ctrl.confirmUserAccess
 );
 
+router.delete(
+  "/:id/remove/:viwerId",
+  authenticate,
+  isValidId,
+  ctrl.removeViwer
+);
+
 module.exports = router;

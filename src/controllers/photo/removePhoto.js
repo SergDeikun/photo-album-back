@@ -7,7 +7,6 @@ const removePhoto = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await service.removePhoto(id);
-    console.log(result);
 
     if (!result) {
       throw RequestError(404, "Not found");

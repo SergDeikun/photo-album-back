@@ -54,7 +54,9 @@ const confirmUserAccess = async (req, res, next) => {
       // { _id: id },
       id,
       {
-        $push: { viewers: { email: user.email, name: user.name } },
+        $push: {
+          viewers: { viwerId: user.id, email: user.email, name: user.name },
+        },
       },
       {
         new: true,
