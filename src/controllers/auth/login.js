@@ -25,11 +25,11 @@ const login = async (req, res, next) => {
       id: user._id,
     };
 
-    const token = jwt.sign(payload, SECRET_KEY);
+    const expirationTime = "1h";
+
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: expirationTime });
     await service.loginUser(user._id, token);
 
-    // res.cookie("token", token, { httpOnly: true });
-    // console.log(res.cookie("token", token, { httpOnly: true }));
     res.json({
       token,
       user: { id: user._id, email },

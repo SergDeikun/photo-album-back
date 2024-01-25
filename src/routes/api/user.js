@@ -14,6 +14,6 @@ router.patch(
   ctrl.updateUser
 );
 
-router.get("/logout", authenticate, ctrl.logout);
+router.post("/logout", authenticate, ctrl.logout);
 
 module.exports = router;
