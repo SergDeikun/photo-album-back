@@ -26,8 +26,11 @@ const login = async (req, res, next) => {
     };
 
     const expirationTime = "1h";
+    // const expirationTime = "5s";
 
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: expirationTime });
+
+    // const token = jwt.sign(payload, SECRET_KEY);
     await service.loginUser(user._id, token);
 
     res.json({
