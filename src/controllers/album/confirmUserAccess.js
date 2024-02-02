@@ -46,7 +46,8 @@ const confirmUserAccess = async (req, res, next) => {
     );
 
     if (isAlreadyShared) {
-      throw RequestError(401, "You already have access to this album");
+      res.json({ token });
+      return;
     }
 
     // add viewer
